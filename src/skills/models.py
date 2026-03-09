@@ -24,7 +24,7 @@ class Profile(models.Model):
     missing_skills = models.ManyToManyField(Skill, related_name="missing_skills")
 
     def __str__(self):
-        return self.user.username + " " + self.skills
+        return self.user.username + " " + [skill.__str__() for skill in self.skills.all()].__str__()
 
 
 class Activity(models.Model):
@@ -42,5 +42,5 @@ class Activity(models.Model):
         verbose_name_plural = "activities"
 
     def __str__(self):
-        return (f"[{self.activity_date}] " + self.needed_skill + " : " +
+        return (f"[{self.activity_date}] " + self.needed_skill.__str__() + " : " +
                 f"\t{self.active_user} - {self.target_user}.")
