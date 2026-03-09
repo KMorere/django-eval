@@ -37,6 +37,10 @@ class Activity(models.Model):
     target_user = models.ForeignKey(Profile, related_name="target", on_delete=models.CASCADE)
     active_user = models.ForeignKey(Profile, related_name="helper", on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "activity"
+        verbose_name_plural = "activities"
+
     def __str__(self):
         return (f"[{self.activity_date}] " + self.needed_skill + " : " +
                 f"\t{self.active_user} - {self.target_user}.")
