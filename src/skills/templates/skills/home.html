@@ -1,0 +1,12 @@
+{% if profiles %}
+    <h3>Profiles :</h3>
+    <ul>
+        {% for profile in profiles %}
+            <li><a>
+                {{profile.username}}
+            </a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No profiles available.</h3>
+{% endif %}
