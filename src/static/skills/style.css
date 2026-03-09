@@ -15,3 +15,11 @@
 #headbar a {
     color: #E8C1C1;
 }
+
+#headbar button {
+    background: none;
+    text-decoration: underline
+    ;border: none;
+    color: #E8C1C1;
+    cursor: pointer;
+}
