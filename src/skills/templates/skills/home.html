@@ -3,12 +3,17 @@
 {% block title %}{{ block.super }} - Home{% endblock %}
 
 {% block content %}
+    <form method="get">
+    {% csrf_token %}
+        <input type="text" name="search" placeholder="Search skills..." value="{{skills}}">
+        <button type="submit">Search</button>
+    </form>
 {% if profiles %}
     <h3>Profiles :</h3>
     <ul>
         {% for profile in profiles %}
             <li><a>
-                {{profile.username}}
+                {{profile}}
             </a></li>
         {% endfor %}
     </ul>

@@ -3,16 +3,19 @@ from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 
-from .models import Profile, Skill
+from .models import Activity, Profile, Skill
 
 
 class HomeView(generic.ListView):
     model = Profile
     template_name = "skills/home.html"
     context_object_name = "profiles"
+    extra_context = {
+        "skills": "",
+    }
 
     def get_queryset(self):
-        return Profile.objects.all()
+        return Activity.objects.filter(needed_skill__skill_name=self.request.GET.get("search", ""))
 
 
 class SkillView(generic.ListView):
