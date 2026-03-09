@@ -7,15 +7,15 @@ from .models import Activity, Profile, Skill
 
 
 class HomeView(generic.ListView):
-    model = Profile
+    model = Activity
     template_name = "skills/home.html"
     context_object_name = "profiles"
     extra_context = {
-        "skills": "",
+        "skills": Skill.objects.all(),
     }
 
     def get_queryset(self):
-        return Activity.objects.filter(needed_skill__skill_name=self.request.GET.get("search", ""))
+        return self.model.display_activities(self.request.GET.get("search", ""))
 
 
 class SkillView(generic.ListView):

@@ -5,7 +5,12 @@
 {% block content %}
     <form method="get">
     {% csrf_token %}
-        <input type="text" name="search" placeholder="Search skills..." value="{{skills}}">
+        <label for="search">Search skills :</label>
+        <select name="search" id="search">
+            {% for skill in skills %}
+                <option value="{{skill}}">{{skill}}</option>
+            {% endfor %}
+        </select>
         <button type="submit">Search</button>
     </form>
 {% if profiles %}

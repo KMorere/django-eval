@@ -44,3 +44,8 @@ class Activity(models.Model):
     def __str__(self):
         return (f"[{self.activity_date}] " + self.needed_skill.__str__() + " : " +
                 f"\t{self.active_user} - {self.target_user}.")
+
+    @staticmethod
+    def display_activities(request):
+        return (Activity.objects.filter(activity_date__gt=timezone.now())
+                .filter(needed_skill__skill_name=request))
