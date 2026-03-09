@@ -1,0 +1,12 @@
+{% if skills %}
+    <h3>Available skills :</h3>
+    <ul>
+        {% for skill in skills %}
+            <li><a>
+                {{skill.skill_name}}
+            </a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No skills available.</h3>
+{% endif %}
