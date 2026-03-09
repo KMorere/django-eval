@@ -1,0 +1,17 @@
+#headbar {
+    height: 50px;
+    background-color: MediumSlateBlue;
+    display: flex;
+    align-items: center;
+}
+
+#headbar ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#headbar a {
+    color: #E8C1C1;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MySkills{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'skills/style.css' %}">
+</head>
+<body>
+    <header id="headbar">
+        {% block headbar %}
+        <ul>
+            <li><a href="{% url 'skills:home' %}">Home</a></li>
+        </ul>
+        {% endblock %}
+    </header>
+
+    <main id="content">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
