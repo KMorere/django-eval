@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} - Profile{% endblock %}
+
+{% block content %}
+    <h3>Your profile :</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Add</button>
+    </form>
+
+    {% if skills %}
+        <h3>Your skills :</h3>
+        <ul>
+            {% for skill in skills %}
+                <li><a>
+                    {{skill.skill_name}}
+                </a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>No skills available.</h3>
+    {% endif %}
+{% endblock %}

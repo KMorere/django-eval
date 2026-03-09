@@ -5,4 +5,5 @@ app_name = "skills"
 urlpatterns = [
     path("", views.HomeView.as_view(), name="home"),
     path("all/", views.SkillView.as_view(), name="all"),
+    path("profile/<int:pk>/", views.profile, name="profile"),
 ]

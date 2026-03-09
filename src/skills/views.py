@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import FormMixin
 
 from .models import Activity, Profile, Skill
+from .forms import ProfileForm
 
 
 class HomeView(generic.ListView):
@@ -25,3 +27,25 @@ class SkillView(generic.ListView):
 
     def get_queryset(self):
         return Skill.objects.all().order_by("skill_name").values()
+
+
+def profile(request, pk):
+    pf = get_object_or_404(Profile, pk=pk)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=pf)
+
+        if form.is_valid():
+            pf_form = form.save(commit=False)
+            pf_form.save()
+            new_skill = form.cleaned_data["skills"]
+            for skill in new_skill:
+                pf.skills.add(skill)
+
+            return HttpResponseRedirect(reverse("skills:home"))
+    else:
+        form = ProfileForm(instance=pf)
+
+    return render(request, "skills/profile.html", {
+        "skills": Profile.objects.get(pk=pk).skills.all(),
+        "form": form
+    })
