@@ -20,9 +20,16 @@
     {% if requests %}
         <ul>
             {% for r in requests %}
-                <li><a>
-                    {{r}}
-                </a></li>
+            {% if not r.is_hidden %}
+                <li style="display: flex;">
+                    <a>{{r}}</a>
+                    <form method="post" style="margin-left: 8px;">
+                        {% csrf_token %}
+                        <input type="hidden" name="request_id" value="{{r.id}}">
+                        <button type="submit">Add</button>
+                    </form>
+                </li>
+            {% endif %}
             {% endfor %}
         </ul>
     {% else %}

@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext as _
 
-from .models import Profile, Request, Skill
+from .models import Activity, Profile, Request, Skill
 
 
 class ProfileForm(forms.ModelForm):
@@ -41,3 +41,7 @@ class RequestForm(forms.ModelForm):
     class Meta:
         model = Request
         fields = ["schedule", "needed_skill"]
+
+
+class ActivityForm(forms.Form):
+    request_id = forms.IntegerField(widget=forms.HiddenInput())

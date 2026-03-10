@@ -4,16 +4,37 @@ from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
+from django.utils import timezone
 
 from .models import Activity, Profile, Request, Skill
-from .forms import ProfileForm, RequestForm
+from .forms import ProfileForm, RequestForm, ActivityForm
 
 
 def home(request):
+    if request.method == "POST":
+        form = ActivityForm(request.POST)
+        print("req")
+
+        if form.is_valid():
+            a_id = form.cleaned_data["request_id"]
+            req = get_object_or_404(Request, id=a_id)
+            Activity.objects.create(
+                activity_date=timezone.now(),
+                request=req,
+                helper=Profile.objects.get(pk=request.user.pk)
+            )
+            req.is_hidden = True
+            req.save()
+
+            return HttpResponseRedirect(reverse("skills:home"))
+    else:
+        form = ActivityForm
+
     return render(request, "skills/home.html", {
         "activities": Activity.display_activities(request.GET.get("search", None)),
         "skills": Skill.objects.all(),
-        "requests": Request.objects.filter(needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name)
+        "requests": Request.objects.filter(needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name),
+        "form": form
     })
 
 
