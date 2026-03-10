@@ -17,7 +17,7 @@ class HomeView(generic.ListView):
     }
 
     def get_queryset(self):
-        return self.model.display_activities(self.request.GET.get("search", ""))
+        return self.model.display_activities(self.request.GET.get("search", None))
 
 
 class SkillView(generic.ListView):

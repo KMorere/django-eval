@@ -47,5 +47,7 @@ class Activity(models.Model):
 
     @staticmethod
     def display_activities(request):
-        return (Activity.objects.filter(activity_date__gt=timezone.now())
+        if request is None or request == "None":
+            return Activity.objects.all()
+        return (Activity.objects.filter(activity_date__gte=timezone.now())
                 .filter(needed_skill__skill_name=request))

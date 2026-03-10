@@ -7,6 +7,7 @@
     {% csrf_token %}
         <label for="search">Search skills :</label>
         <select name="search" id="search">
+                <option value="None">All</option>
             {% for skill in skills %}
                 <option value="{{skill}}">{{skill}}</option>
             {% endfor %}
