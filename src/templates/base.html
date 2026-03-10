@@ -10,9 +10,20 @@
 <body>
     <header id="headbar">
         {% block headbar %}
+        <h3>
+            <span class="c1">My</span>
+            <span class="c2">Skills</span>
+        </h3>
+
+        <div class="divider"></div>
+
         <ul>
             <li><a href="{% url 'skills:home' %}">Home</a></li>
             <li><a href="{% url 'skills:all' %}">Skills</a></li>
+
+            {% if user.is_superuser %}
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            {% endif %}
 
             {% if not user.is_authenticated %}
                 <li><a href="{% url 'login' %}">Login</a></li>

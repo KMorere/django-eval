@@ -1,15 +1,42 @@
 #headbar {
     height: 50px;
+    padding-left: 16px;
     background-color: MediumSlateBlue;
     display: flex;
     align-items: center;
+}
+
+#headbar h3 {
+    font-size: 0px;
+}
+
+#headbar h3 > span {
+    font-size: 18px;
+}
+
+#headbar .c1 {
+    color: coral;
+}
+
+#headbar .c2 {
+    color: skyblue;
+}
+
+#headbar .divider {
+    border-style: solid;
+    border-width: thin;
+    border-left: 1px;
+    height: 32px;
+    color: black;
+    margin-inline: 16px;
 }
 
 #headbar ul {
     list-style-type: none;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
+    padding-inline-start: 16px;
 }
 
 #headbar a {
