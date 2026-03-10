@@ -43,7 +43,7 @@ class Activity(models.Model):
 
     def __str__(self):
         return (f"[{self.activity_date}] " + self.needed_skill.__str__() + " : " +
-                f"\t{self.active_user} - {self.target_user}.")
+                f"\t{self.active_user.user.username} - {self.target_user.user.username}.")
 
     @staticmethod
     def display_activities(request):

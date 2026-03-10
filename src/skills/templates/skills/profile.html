@@ -27,4 +27,17 @@
     {% else %}
         <h3>No skills available.</h3>
     {% endif %}
+
+    {% if activities %}
+        <h3>Your activity :</h3>
+        <ul>
+            {% for a in activities %}
+                <li><a>
+                    {{a}}
+                </a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h3>No activity available.</h3>
+    {% endif %}
 {% endblock %}

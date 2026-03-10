@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic.edit import FormMixin
+from django.db.models import Q
 
 from .models import Activity, Profile, Skill
 from .forms import ProfileForm
@@ -46,5 +46,6 @@ def profile(request, pk):
 
     return render(request, "skills/profile.html", {
         "skills": Profile.objects.get(pk=pk).skills.all(),
+        "activities": Activity.objects.filter(Q(target_user__pk=pk) | Q(active_user__pk=pk)),
         "form": form
     })
