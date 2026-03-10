@@ -36,7 +36,7 @@ class Request(models.Model):
     needed_skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"[{self.schedule}] " + self.needed_skill.__str__() + f" Created by {self.author}."
+        return f"[{self.get_schedule_display()}] " + self.needed_skill.__str__() + f" Created by {self.author}."
 
 
 class Activity(models.Model):
