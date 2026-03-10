@@ -1,11 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 
-from .models import Activity, Profile, Skill
-from .forms import ProfileForm
+from .models import Activity, Profile, Request, Skill
+from .forms import ProfileForm, RequestForm
 
 
 class HomeView(generic.ListView):
@@ -31,6 +32,7 @@ class SkillView(generic.ListView):
 
 def profile(request, pk):
     pf = get_object_or_404(Profile, pk=pk)
+
     if request.method == "POST":
         form = ProfileForm(request.POST, instance=pf)
 
@@ -46,6 +48,29 @@ def profile(request, pk):
 
     return render(request, "skills/profile.html", {
         "skills": Profile.objects.get(pk=pk).skills.all(),
-        "activities": Activity.objects.filter(Q(target_user__pk=pk) | Q(active_user__pk=pk)),
-        "form": form
+        "activities": Activity.objects.filter(Q(request__author__pk=pk) | Q(helper__pk=pk)),
+        "form": form,
+    })
+
+
+@login_required
+def request_form(request):
+    if request.method == "POST":
+        form = RequestForm(request.POST)
+
+        if form.is_valid():
+            req_form = form.save(commit=False)
+            days = form.cleaned_data["schedule"]
+            req_form.days = days
+            req_form.author = Profile.objects.get(pk=request.user.pk)
+            req_form.save()
+
+            return HttpResponseRedirect(reverse("skills:home"))
+    else:
+        form = RequestForm()
+        form.fields["needed_skill"].queryset = Profile.objects.get(pk=request.user.pk).missing_skills
+
+    return render(request, "skills/request.html", {
+        "requests": Request.objects.all(),
+        "form": form,
     })
