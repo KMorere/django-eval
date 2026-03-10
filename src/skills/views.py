@@ -36,10 +36,9 @@ def profile(request, pk):
 
         if form.is_valid():
             pf_form = form.save(commit=False)
-            pf_form.save()
             new_skill = form.cleaned_data["skills"]
-            for skill in new_skill:
-                pf.skills.add(skill)
+            pf.skills.set(new_skill)
+            pf_form.save()
 
             return HttpResponseRedirect(reverse("skills:profile", args=(pk,)))
     else:
