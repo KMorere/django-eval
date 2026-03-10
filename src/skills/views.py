@@ -41,7 +41,7 @@ def profile(request, pk):
             for skill in new_skill:
                 pf.skills.add(skill)
 
-            return HttpResponseRedirect(reverse("skills:home"))
+            return HttpResponseRedirect(reverse("skills:profile", args=(pk,)))
     else:
         form = ProfileForm(instance=pf)
 
