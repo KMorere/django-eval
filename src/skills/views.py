@@ -9,16 +9,12 @@ from .models import Activity, Profile, Request, Skill
 from .forms import ProfileForm, RequestForm
 
 
-class HomeView(generic.ListView):
-    model = Activity
-    template_name = "skills/home.html"
-    context_object_name = "profiles"
-    extra_context = {
+def home(request):
+    return render(request, "skills/home.html", {
+        "activities": Activity.display_activities(request.GET.get("search", None)),
         "skills": Skill.objects.all(),
-    }
-
-    def get_queryset(self):
-        return self.model.display_activities(self.request.GET.get("search", None))
+        "requests": Request.objects.filter(needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name)
+    })
 
 
 class SkillView(generic.ListView):

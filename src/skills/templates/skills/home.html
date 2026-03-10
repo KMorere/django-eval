@@ -14,16 +14,32 @@
         </select>
         <button type="submit">Search</button>
     </form>
-{% if profiles %}
-    <h3>Profiles :</h3>
+
+{% if user.is_authenticated %}
+    <h3>Requests :</h3>
+    {% if requests %}
+        <ul>
+            {% for r in requests %}
+                <li><a>
+                    {{r}}
+                </a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No requests available.</p>
+    {% endif %}
+{% endif %}
+
+<h3>Future activities :</h3>
+{% if activities %}
     <ul>
-        {% for profile in profiles %}
+        {% for a in activities %}
             <li><a>
-                {{profile}}
+                {{a}}
             </a></li>
         {% endfor %}
     </ul>
 {% else %}
-    <h3>No profiles available.</h3>
+    <p>No profiles available.</p>
 {% endif %}
 {% endblock %}

@@ -38,6 +38,9 @@ class Request(models.Model):
     def __str__(self):
         return f"[{self.get_schedule_display()}] " + self.needed_skill.__str__() + f" Created by {self.author}."
 
+    def get_request(self):
+        return f"[{self.get_schedule_display().capitalize()}] " + self.needed_skill.__str__()
+
 
 class Activity(models.Model):
     """
@@ -53,7 +56,7 @@ class Activity(models.Model):
         verbose_name_plural = "activities"
 
     def __str__(self):
-        return (self.request.__str__() +
+        return (f"[{self.activity_date}] - [{self.request.needed_skill}]" +
                 f"\n\tHelper : {self.helper.user.username}.")
 
     @staticmethod
