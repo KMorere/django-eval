@@ -1,13 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ block.super }} - Profile{% endblock %}
+
+{% block style %}<link rel="stylesheet" href="{% static 'skills/profile.css' %}">{% endblock %}
 
 {% block content %}
     <h3>Your profile :</h3>
     <form method="post">
         {% csrf_token %}
+        <div class="form-content">
         {{form}}
-        <button type="submit">Add</button>
+        </div>
+        <button type="submit">Update</button>
     </form>
 
     {% if skills %}
