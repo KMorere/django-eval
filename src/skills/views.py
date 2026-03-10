@@ -30,6 +30,7 @@ class SkillView(generic.ListView):
         return Skill.objects.all().order_by("skill_name").values()
 
 
+@login_required
 def profile(request, pk):
     pf = get_object_or_404(Profile, pk=pk)
 
