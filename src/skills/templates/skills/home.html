@@ -15,26 +15,26 @@
         <button type="submit">Search</button>
     </form>
 
-{% if user.is_authenticated %}
-    <h3>Requests :</h3>
-    {% if requests %}
-        <ul>
-            {% for r in requests %}
-            {% if r.author.user is not user %}
-                <li style="display: flex;">
-                    <a>{{r}}</a>
-                    <form method="post" style="margin-left: 8px;">
-                        {% csrf_token %}
-                        <input type="hidden" name="request_id" value="{{r.id}}">
+<h3>Requests :</h3>
+{% if requests %}
+    <ul>
+        {% for r in requests %}
+        {% if r.author.user is not user %}
+            <li style="display: flex;">
+                <a>{{r}}</a>
+                <form method="post" style="margin-left: 8px;">
+                    {% csrf_token %}
+                    <input type="hidden" name="request_id" value="{{r.id}}">
+                    {% if user.is_authenticated %}
                         <button type="submit">Add</button>
-                    </form>
-                </li>
-            {% endif %}
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No requests available.</p>
-    {% endif %}
+                    {% endif %}
+                </form>
+            </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No requests available.</p>
 {% endif %}
 
 <h3>Future activities :</h3>
