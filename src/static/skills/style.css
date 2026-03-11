@@ -3,7 +3,9 @@
     padding-left: 16px;
     background-color: MediumSlateBlue;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
 
 #headbar h3 {
@@ -37,6 +39,17 @@
     align-items: center;
     gap: 16px;
     padding-inline-start: 16px;
+}
+
+#headbar .start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#headbar .end {
+    display: flex;
+    justify-content: flex-end;
 }
 
 #headbar a {

@@ -10,25 +10,30 @@
 <body>
     <header id="headbar">
         {% block headbar %}
-        <h3>
-            <span class="c1">My</span>
-            <span class="c2">Skills</span>
-        </h3>
+        <div class="start">
+            <h3>
+                <span class="c1">My</span>
+                <span class="c2">Skills</span>
+            </h3>
 
-        <div class="divider"></div>
+            <div class="divider"></div>
 
-        <ul>
-            <li><a href="{% url 'skills:home' %}">Home</a></li>
-            <li><a href="{% url 'skills:all' %}">Skills</a></li>
+            <ul>
+                <li><a href="{% url 'skills:home' %}">Home</a></li>
+                <li><a href="{% url 'skills:all' %}">Skills</a></li>
+            </ul>
+        </div>
 
-            {% if user.is_superuser %}
-                <li><a href="{% url 'admin:index' %}">Admin</a></li>
-            {% endif %}
-
+        <div class="end"><ul>
             {% if not user.is_authenticated %}
                 <li><a href="{% url 'login' %}">Login</a></li>
             {% else %}
                 <li><a href="{% url 'skills:request' %}">Requests</a></li>
+
+                {% if user.is_superuser %}
+                    <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                {% endif %}
+
                 <li><a href="{% url 'skills:profile' user.pk %}">Profile</a></li>
 
                 <li><form action="{% url 'logout' %}" method="post">
@@ -37,7 +42,7 @@
                         Logout</button>
                 </form></li>
             {% endif %}
-        </ul>
+        </ul></div>
         {% endblock %}
     </header>
 
