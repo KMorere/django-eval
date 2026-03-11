@@ -16,7 +16,7 @@ def home(request):
     """
     if request.user.is_authenticated:
         requests = Request.objects.filter(
-            needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name)
+            needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name).exclude(is_hidden=True)
     else:
         requests = None
 
