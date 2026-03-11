@@ -20,7 +20,7 @@
     {% if requests %}
         <ul>
             {% for r in requests %}
-            {% r.author.user is not user %}
+            {% if r.author.user is not user %}
                 <li style="display: flex;">
                     <a>{{r}}</a>
                     <form method="post" style="margin-left: 8px;">
