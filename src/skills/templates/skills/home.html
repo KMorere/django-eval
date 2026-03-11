@@ -20,7 +20,7 @@
     {% if requests %}
         <ul>
             {% for r in requests %}
-            {% if not r.is_hidden %}
+            {% r.author.user is not user %}
                 <li style="display: flex;">
                     <a>{{r}}</a>
                     <form method="post" style="margin-left: 8px;">
@@ -29,8 +29,6 @@
                         <button type="submit">Add</button>
                     </form>
                 </li>
-            {% else %}
-                <li>No requests available.</li>
             {% endif %}
             {% endfor %}
         </ul>
