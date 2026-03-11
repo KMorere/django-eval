@@ -15,7 +15,11 @@
         {% for r in requests %}
         {% if r.author.user is not user %}
             <li style="display: flex;">
-                <a>{{r}}</a>
+                {% if user.is_authenticated %}
+                    <a>{{r.author.get_user}}</a>
+                {% else %}
+                    <a>{{r}}</a>
+                {% endif %}
                 <form method="post" style="margin-left: 8px;">
                     {% csrf_token %}
                     <input type="hidden" name="request_id" value="{{r.id}}">
@@ -35,9 +39,15 @@
 {% if activities %}
     <ul>
         {% for a in activities %}
-            <li><a>
-                {{a}}
-            </a></li>
+            {% if user.is_authenticated %}
+                <li><a>
+                    {{a.get_activity}}
+                </a></li>
+            {% else %}
+                <li><a>
+                    {{a}}
+                </a></li>
+            {% endif %}
         {% endfor %}
     </ul>
 {% else %}

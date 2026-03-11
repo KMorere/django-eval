@@ -41,6 +41,12 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username + " " + [skill.__str__() for skill in self.skills.all()].__str__()
 
+    def get_user(self):
+        """
+        Get the information of a user.
+        """
+        return self.user.first_name + " " + self.user.last_name + " - " + self.user.email
+
 
 class Request(models.Model):
     """
@@ -77,6 +83,14 @@ class Activity(models.Model):
     def __str__(self):
         return (f"[{self.activity_date}] - [{self.request.needed_skill}]" +
                 f"\n\tHelper : {self.helper.user.username}.")
+
+    def get_activity(self):
+        """
+        Display the activity in details.
+        :return:
+        """
+        return (f"[{self.activity_date}] - [{self.request.needed_skill}]" +
+                f"\n\tHelper : {self.helper.get_user()}.")
 
     @staticmethod
     def display_activities(request):
