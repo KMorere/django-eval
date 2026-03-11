@@ -29,6 +29,8 @@
                         <button type="submit">Add</button>
                     </form>
                 </li>
+            {% else %}
+                <li>No requests available.</li>
             {% endif %}
             {% endfor %}
         </ul>
