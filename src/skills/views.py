@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
 
@@ -14,6 +14,12 @@ def home(request):
     """
     View of the homepage.
     """
+    if request.user.is_authenticated:
+        requests = Request.objects.filter(
+            needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name)
+    else:
+        requests = None
+
     if request.method == "POST":
         form = ActivityForm(request.POST)
 
@@ -35,7 +41,7 @@ def home(request):
     return render(request, "skills/home.html", {
         "activities": Activity.display_activities(request.GET.get("search", None)),
         "skills": Skill.objects.all(),
-        "requests": Request.objects.filter(needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name),
+        "requests": requests,
         "form": form
     })
 
@@ -58,6 +64,9 @@ def profile(request, pk):
     View of the currently connected user's profile
     """
     pf = get_object_or_404(Profile, pk=pk)
+
+    if pf.user != request.user:
+        return HttpResponseRedirect(reverse("skills:home"))
 
     if request.method == "POST":
         form = ProfileForm(request.POST, instance=pf)
