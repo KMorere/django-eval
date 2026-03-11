@@ -5,11 +5,23 @@ from django.utils import timezone
 from .fields import DaysField
 
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "category"
+        verbose_name_plural = "categories"
+
+    def __str__(self):
+        return self.category_name
+
+
 class Skill(models.Model):
     """
     A skill used by Users.
     """
     skill_name = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, default=None)
 
     def __str__(self):
         return self.skill_name
