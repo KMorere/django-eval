@@ -6,6 +6,9 @@ from .fields import DaysField
 
 
 class Category(models.Model):
+    """
+    A category for skills.
+    """
     category_name = models.CharField(max_length=100)
 
     class Meta:
