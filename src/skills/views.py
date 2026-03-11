@@ -14,9 +14,12 @@ def home(request):
     """
     View of the homepage.
     """
+    search_query = request.GET.get("search", None)
     if request.user.is_authenticated:
-        requests = Request.objects.filter(
-            needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name).exclude(is_hidden=True)
+        requests = (Request.objects.filter(
+            needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name)
+                    .exclude(is_hidden=True)
+                    .filter(needed_skill__skill_name=search_query))
     else:
         requests = None
 
@@ -39,7 +42,7 @@ def home(request):
         form = ActivityForm
 
     return render(request, "skills/home.html", {
-        "activities": Activity.display_activities(request.GET.get("search", None)),
+        "activities": Activity.display_activities(search_query),
         "skills": Skill.objects.all(),
         "requests": requests,
         "form": form
