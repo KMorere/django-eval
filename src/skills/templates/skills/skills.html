@@ -5,11 +5,19 @@
 {% block content %}
 {% if skills %}
     <h3>Available skills :</h3>
+
     <ul>
-        {% for skill in skills %}
-            <li><a>
-                {{skill.skill_name}}
-            </a></li>
+        {% for cat in categories %}
+            {% if cat.skill_set.all %}
+            <li>{{cat.category_name}}</li>
+            <ul>
+                {% for skill in cat.skill_set.all %}
+                    <li><a>
+                        {{skill.skill_name}}
+                    </a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         {% endfor %}
     </ul>
 {% else %}

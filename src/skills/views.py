@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
 
-from .models import Activity, Profile, Request, Skill
+from .models import Activity, Profile, Request, Skill, Category
 from .forms import ProfileForm, RequestForm, ActivityForm, SearchForm
 
 
@@ -58,6 +58,9 @@ class SkillView(generic.ListView):
     model = Skill
     template_name = "skills/skills.html"
     context_object_name = "skills"
+    extra_context = {
+        "categories": Category.objects.all()
+    }
 
     def get_queryset(self):
         return Skill.objects.all().order_by("skill_name").values()
