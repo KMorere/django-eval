@@ -11,9 +11,11 @@ from .forms import ProfileForm, RequestForm, ActivityForm
 
 
 def home(request):
+    """
+    View of the homepage.
+    """
     if request.method == "POST":
         form = ActivityForm(request.POST)
-        print("req")
 
         if form.is_valid():
             a_id = form.cleaned_data["request_id"]
@@ -39,6 +41,9 @@ def home(request):
 
 
 class SkillView(generic.ListView):
+    """
+    View of all skills.
+    """
     model = Skill
     template_name = "skills/skills.html"
     context_object_name = "skills"
@@ -49,6 +54,9 @@ class SkillView(generic.ListView):
 
 @login_required
 def profile(request, pk):
+    """
+    View of the currently connected user's profile
+    """
     pf = get_object_or_404(Profile, pk=pk)
 
     if request.method == "POST":
@@ -73,6 +81,9 @@ def profile(request, pk):
 
 @login_required
 def request_form(request):
+    """
+    View of the request creation for the current user.
+    """
     if request.method == "POST":
         form = RequestForm(request.POST)
 

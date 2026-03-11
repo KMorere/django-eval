@@ -5,6 +5,9 @@ from .models import Activity, Profile, Request, Skill
 
 
 class ProfileForm(forms.ModelForm):
+    """
+    Form in the profile view to modify the current user's skills.
+    """
     class Meta:
         model = Profile
         fields = ["skills", "missing_skills"]
@@ -26,6 +29,9 @@ DAYS = {
 
 
 class RequestForm(forms.ModelForm):
+    """
+    Creation of a request.
+    """
     schedule = forms.ChoiceField(
         choices=[(key, value) for key, value in DAYS.items()],
         required=True,
@@ -44,4 +50,7 @@ class RequestForm(forms.ModelForm):
 
 
 class ActivityForm(forms.Form):
+    """
+    Hidden form to accept a request.
+    """
     request_id = forms.IntegerField(widget=forms.HiddenInput())

@@ -40,6 +40,9 @@ class Request(models.Model):
         return f"[{self.get_schedule_display()}] " + self.needed_skill.__str__() + f" Created by {self.author}."
 
     def get_request(self):
+        """
+        Display a request in a simple way with the schedule and needed skill.
+        """
         return f"[{self.get_schedule_display().capitalize()}] " + self.needed_skill.__str__()
 
 
@@ -62,6 +65,11 @@ class Activity(models.Model):
 
     @staticmethod
     def display_activities(request):
+        """
+        Get all the future activities.
+        :param request: The requested skill to filter in the activities.
+        :return: The filter activities in the database.
+        """
         if request is None or request == "None":
             return Activity.objects.all()
         return (Activity.objects.filter(activity_date__gte=timezone.now())
