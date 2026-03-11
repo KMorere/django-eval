@@ -7,14 +7,15 @@ from django.db.models import Q
 from django.utils import timezone
 
 from .models import Activity, Profile, Request, Skill
-from .forms import ProfileForm, RequestForm, ActivityForm
+from .forms import ProfileForm, RequestForm, ActivityForm, SearchForm
 
 
 def home(request):
     """
     View of the homepage.
     """
-    search_query = request.GET.get("search", None)
+    categories = SearchForm
+    search_query = request.GET.get("skills", None)
     if request.user.is_authenticated:
         requests = (Request.objects.filter(
             needed_skill__skill_name=Skill.objects.get(pk=request.user.pk).skill_name)
@@ -45,7 +46,8 @@ def home(request):
         "activities": Activity.display_activities(search_query),
         "skills": Skill.objects.all(),
         "requests": requests,
-        "form": form
+        "form": form,
+        "categories": categories
     })
 
 

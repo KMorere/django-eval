@@ -1,7 +1,32 @@
 from django import forms
 from django.utils.translation import gettext as _
 
-from .models import Activity, Profile, Request, Skill
+from .models import Activity, Profile, Request, Skill, Category
+
+
+class GroupedSkillsChoiceField(forms.ModelChoiceField):
+    def __init__(self, *args, extra_option, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.choices = self.grouped_choices(extra_option)
+
+    def grouped_choices(self, extra_option):
+        choices = [extra_option]
+        for category in Category.objects.all():
+            skills = Skill.objects.filter(category=category)
+            if skills.exists():
+                choices.append((
+                    category.category_name,
+                    [(s.skill_name, s.skill_name) for s in skills]
+                ))
+        return choices
+
+
+class SearchForm(forms.Form):
+    skills = GroupedSkillsChoiceField(
+        queryset=Skill.objects.all(),
+        extra_option=("None", "All"),
+        empty_label="Select a skill"
+    )
 
 
 class ProfileForm(forms.ModelForm):

@@ -5,14 +5,8 @@
 {% block content %}
     <form method="get">
     {% csrf_token %}
-        <label for="search">Search skills :</label>
-        <select name="search" id="search">
-                <option value="None">All</option>
-            {% for skill in skills %}
-                <option value="{{skill}}">{{skill}}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Search</button>
+        {{categories}}
+        <input type="submit" value="Search">
     </form>
 
 <h3>Requests :</h3>

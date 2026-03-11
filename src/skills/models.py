@@ -86,6 +86,6 @@ class Activity(models.Model):
         :return: The filter activities in the database.
         """
         if request is None or request == "None":
-            return Activity.objects.all()
+            return Activity.objects.filter(activity_date__gte=timezone.now())
         return (Activity.objects.filter(activity_date__gte=timezone.now())
                 .filter(request__needed_skill__skill_name=request))
