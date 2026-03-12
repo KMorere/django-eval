@@ -1,11 +1,11 @@
 # Evaluation Web Python - Échange de compétence :
 
-# Sommaire :
-- [Introduction](README.md#Introduction)
-- [Installation](README.md#Installation)
-- [Architecture](README.md#Architecture)
+# Sommaire
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Architecture](#architecture)
 
-# Introduction :
+# Introduction
 Il s'agit de spécifier, concevoir et réaliser le prototype d'un système qui permettrait à des 
 personnes d'échanger des compétences (ex. : jardinage, administration d'un ordinateur), 
 permettant d'accomplir des activités (ex. : tailler un rosier, installer un logiciel), avec des 
@@ -18,11 +18,11 @@ la météo pour savoir si un créneau est favorable à une activité et considé
 est une journée entière (à l’intérieur de laquelle on suppose que les personnes peuvent 
 convenir d’un créneau pour se rencontrer). 
 
-# Installation :
+# Installation
 Utilisation de la version 3.14 de Python ainsi que Django 5.2.12.
 Les packages sont également fournits dans le fichier "Requirements.txt".
 
-# Architecture :
+## Architecture
 1. Home :
 Le site affiche les requêtes et activités futures sur la page principale,
 Si un utilisateur est connecté il pourra accepter une requête d'un autre utilisateur.
