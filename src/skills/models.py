@@ -55,7 +55,7 @@ class Request(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     schedule = DaysField()
     needed_skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
-    is_hidden = models.BooleanField()
+    is_hidden = models.BooleanField(default=False)
 
     def __str__(self):
         return f"[{self.get_schedule_display()}] " + self.needed_skill.__str__() + f" Created by {self.author}."
